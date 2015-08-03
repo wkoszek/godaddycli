@@ -12,7 +12,7 @@ GoDaddy Command Line Interface
 Command Line Interface to GoDaddy.com based on PyGoDaddy Library
 
 * Free software: BSD license
-* Documentation: https://godaddycli.readthedocs.org.
+* Documentation: https://github.com/wkoszek/godaddycli
 
 Features
 --------
