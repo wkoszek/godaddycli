@@ -3,6 +3,10 @@
 History
 -------
 
+0.1.3 (2015-08-03)
+
+* added some docs.
+
 0.1.2 (2015-08-02)
 
 * correctly installed the godaddycli in bin/ directory
