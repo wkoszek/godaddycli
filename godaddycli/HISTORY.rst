@@ -3,6 +3,10 @@
 History
 -------
 
+0.1.4 (2015-08-03)
+
+* made VERSION.rst be used for versioning.
+
 0.1.3 (2015-08-03)
 
 * added some docs.
