@@ -14,6 +14,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
+with open('VERSION.rst') as version_file:
+    version = version_file.read()
+
 requirements = [
     "pygodaddy"
 ]
@@ -24,7 +27,7 @@ test_requirements = [
 
 setup(
     name='godaddycli',
-    version='0.1.2',
+    version=version,
     description="Command Line Interface to GoDaddy.com based on PyGoDaddy Library",
     long_description=readme + '\n\n' + history,
     author="Wojciech A. Koszek",
