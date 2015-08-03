@@ -21,20 +21,47 @@ def parse_args(args):
     parser = argparse.ArgumentParser(description="GoDaddy.com CLI")
     parser.add_argument("--user")
     parser.add_argument("--password")
+    parser.add_argument("--domain", action="append", default=None)
+    parser.add_argument("--recordtype", action="append", default=None)
     parser.add_argument("--debug", action="store_true", default=False)
     args = parser.parse_args(args)
     return args
 
-def godaddycli(username, password):
-    client = GoDaddyClient()
+def godaddycli(username, password, domains_cli, recordtypes_cli):
+    dbg("passed from CLI:")
+    dbg(domains_cli)
+    dbg(recordtypes_cli)
 
+    client = GoDaddyClient()
     c = client.login(username, password)
     if not c:
             print "couldn't login"
             sys.exit(1)
 
-    for domain_name in client.find_domains():
-        for record_type in g_dns_record_types:
+    domains = client.find_domains()
+    dbg(domains)
+
+    if domains_cli is not None:
+        for d_cli in domains_cli:
+            if d_cli not in domains:
+                print "Domain {0} not in GoDaddy!".format(d_cli)
+                sys.exit(1)
+        domains = domains_cli
+
+    recordtypes = g_dns_record_types
+    if recordtypes_cli is not None:
+        for r in recordtypes_cli:
+            if r not in recordtypes:
+                print "Record type {0} is unknown!".format(r)
+                sys.exit(1)
+        recordtypes = recordtypes_cli
+
+    dbg("to scan")
+    dbg(domains)
+    dbg(recordtypes)
+
+    for domain_name in domains:
+        for record_type in recordtypes:
             domain_data_all = client.find_dns_records(domain_name, record_type)
             for domain_data in domain_data_all:
                 print domain_name, record_type, domain_data.hostname, domain_data.value
@@ -99,7 +126,7 @@ def doit(cfg):
             js = json.dump(data_to_save, f)
         f.close()
 
-    godaddycli(user, password)
+    godaddycli(user, password, cfg.domain, cfg.recordtype)
 
 def main():
     cfg = parse_args(sys.argv[1:])
