@@ -27,7 +27,10 @@ def parse_args(args):
     args = parser.parse_args(args)
     return args
 
-def godaddycli(username, password, domains_cli, recordtypes_cli):
+def godaddycli(username, password, cfg):
+    domains_cli = cfg.domain
+    recordtypes_cli = cfg.recordtype
+
     dbg("passed from CLI:")
     dbg(domains_cli)
     dbg(recordtypes_cli)
@@ -126,7 +129,7 @@ def doit(cfg):
             js = json.dump(data_to_save, f)
         f.close()
 
-    godaddycli(user, password, cfg.domain, cfg.recordtype)
+    godaddycli(user, password, cfg)
 
 def main():
     cfg = parse_args(sys.argv[1:])
