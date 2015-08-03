@@ -3,7 +3,7 @@
 This is a simple CLI for GoDaddy. It supports listing of all record types
 from all domains, and deleting and updating of A records.
 
-# How to instal
+# How to install
 
 Version 0.1.2 you can get from `pip`:
 
