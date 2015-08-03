@@ -27,19 +27,13 @@ def parse_args(args):
     args = parser.parse_args(args)
     return args
 
-def godaddycli(username, password, cfg):
+def godaddycli_list(client, cfg):
     domains_cli = cfg.domain
     recordtypes_cli = cfg.recordtype
 
     dbg("passed from CLI:")
     dbg(domains_cli)
     dbg(recordtypes_cli)
-
-    client = GoDaddyClient()
-    c = client.login(username, password)
-    if not c:
-            print "couldn't login"
-            sys.exit(1)
 
     domains = client.find_domains()
     dbg(domains)
@@ -68,6 +62,15 @@ def godaddycli(username, password, cfg):
             domain_data_all = client.find_dns_records(domain_name, record_type)
             for domain_data in domain_data_all:
                 print domain_name, record_type, domain_data.hostname, domain_data.value
+
+def godaddycli(username, password, cfg):
+    client = GoDaddyClient()
+    c = client.login(username, password)
+    if not c:
+            print "couldn't login"
+            sys.exit(1)
+
+    godaddycli_list(client, cfg)
 
 def doit(cfg):
     global g_debug
