@@ -3,6 +3,14 @@
 History
 -------
 
+0.1.2 (2015-08-02)
+
+* correctly installed the godaddycli in bin/ directory
+
+0.1.1 (2015-08-02)
+
+* added correct dependency on pygodaddy
+
 0.1.0 (2015-08-02)
 ---------------------
 
