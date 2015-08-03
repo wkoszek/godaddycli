@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='godaddycli',
-    version='0.1.0',
+    version='0.1.1',
     description="Command Line Interface to GoDaddy.com based on PyGoDaddy Library",
     long_description=readme + '\n\n' + history,
     author="Wojciech A. Koszek",
