@@ -24,6 +24,8 @@ def parse_args(args):
     parser.add_argument("--domain", action="append", default=None)
     parser.add_argument("--recordtype", action="append", default=None)
     parser.add_argument("--debug", action="store_true", default=False)
+    parser.add_argument("--delete", action="append", default=None)
+    parser.add_argument("--list", action="store_true", default=True)
     args = parser.parse_args(args)
     return args
 
@@ -63,6 +65,10 @@ def godaddycli_list(client, cfg):
             for domain_data in domain_data_all:
                 print domain_name, record_type, domain_data.hostname, domain_data.value
 
+def godaddycli_delete(client, cfg):
+    print cfg.delete
+    return 0
+
 def godaddycli(username, password, cfg):
     client = GoDaddyClient()
     c = client.login(username, password)
@@ -70,7 +76,12 @@ def godaddycli(username, password, cfg):
             print "couldn't login"
             sys.exit(1)
 
-    godaddycli_list(client, cfg)
+    if cfg.delete is not None:
+        godaddycli_delete(client, cfg)
+        return 0
+    if cfg.list is not None:
+        godaddycli_list(client, cfg)
+        return 0
 
 def doit(cfg):
     global g_debug
@@ -132,7 +143,7 @@ def doit(cfg):
             js = json.dump(data_to_save, f)
         f.close()
 
-    godaddycli(user, password, cfg)
+    return godaddycli(user, password, cfg)
 
 def main():
     cfg = parse_args(sys.argv[1:])
