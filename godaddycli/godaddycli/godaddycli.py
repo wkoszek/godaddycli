@@ -25,7 +25,9 @@ def parse_args(args):
     parser.add_argument("--recordtype", action="append", default=None)
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--delete", action="append", default=None)
+    parser.add_argument("--update", action="append", default=None)
     parser.add_argument("--list", action="store_true", default=True)
+    parser.add_argument("--value", action="store", default=None)
     args = parser.parse_args(args)
     return args
 
@@ -66,7 +68,21 @@ def godaddycli_list(client, cfg):
                 print domain_name, record_type, domain_data.hostname, domain_data.value
 
 def godaddycli_delete(client, cfg):
-    print cfg.delete
+    dbg("delete")
+    for hostname in cfg.delete:
+        dbg(hostname)
+        client.delete_dns_record(hostname)
+            # warning: pygodaddy only supports A type for deletion
+    return 0
+
+def godaddycli_update(client, cfg):
+    dbg("update")
+    recordtype = "A"
+    if cfg.recordtype is not None:
+        recordtype = cfg.recordtype[0]
+    for hostname in cfg.update:
+        dbg(hostname)
+        client.update_dns_record(hostname, cfg.value, recordtype)
     return 0
 
 def godaddycli(username, password, cfg):
@@ -78,6 +94,9 @@ def godaddycli(username, password, cfg):
 
     if cfg.delete is not None:
         godaddycli_delete(client, cfg)
+        return 0
+    if cfg.update is not None:
+        godaddycli_update(client, cfg)
         return 0
     if cfg.list is not None:
         godaddycli_list(client, cfg)
@@ -142,6 +161,10 @@ def doit(cfg):
         with open(cfg_filename, "w") as f:
             js = json.dump(data_to_save, f)
         f.close()
+
+    if cfg.update is not None and cfg.value is None:
+        print "For --update you must specify --value too"
+        sys.exit(1)
 
     return godaddycli(user, password, cfg)
 
