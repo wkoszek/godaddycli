@@ -33,3 +33,8 @@ Will add record A of name `test.sample.com` and the value `127.0.0.1`
 To delete:
 
 	godaddycli --delete test.sample.com
+
+# Author
+
+- Wojciech Adam Koszek, [wojciech@koszek.com](mailto:wojciech@koszek.com)
+- [http://www.koszek.com](http://www.koszek.com)
