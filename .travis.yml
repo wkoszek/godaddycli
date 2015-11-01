@@ -3,7 +3,4 @@ python:
 - '2.7'
 - '3.3'
 - pypy
-before_install:
-- openssl aes-256-cbc -K $encrypted_3c7a3dd9bc51_key -iv $encrypted_3c7a3dd9bc51_iv -in dot.pypirc.enc -out dot.pypirc -d
-- mv dot.pypirc ~/.pypirc
 
