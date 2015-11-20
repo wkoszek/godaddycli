@@ -1,5 +1,7 @@
 # Command Line Interface to GoDaddy.com based on PyGoDaddy Library
 
+[![Build Status](https://travis-ci.org/wkoszek/godaddycli.svg?branch=master)](https://travis-ci.org/wkoszek/godaddycli)
+
 This is a simple CLI for GoDaddy. It supports listing of all record types
 from all domains, and deleting and updating of A records.
 
