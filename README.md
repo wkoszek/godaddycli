@@ -1,4 +1,8 @@
-# Command Line Interface to GoDaddy.com based on PyGoDaddy Library
+# BROKEN
+
+GoDaddy API changed, and the underlying library didn't catch up, so I'm officially killing this project. I'll remove it in 3-4 months. If you care, submit patches now.
+
+### Command Line Interface to GoDaddy.com based on PyGoDaddy Library
 
 [![Build Status](https://travis-ci.org/wkoszek/godaddycli.svg?branch=master)](https://travis-ci.org/wkoszek/godaddycli)
 
